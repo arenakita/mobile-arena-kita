@@ -38,6 +38,9 @@ Ikuti langkah di bawah ini sesuai sistem operasi Anda.
 5.  Tempelkan **Script Hook** di bawah ini.
 6.  Simpan file.
 
+> **PENTING (User Windows):** > Pastikan format baris file adalah **LF**, bukan CRLF.
+> Lihat bagian Troubleshooting di bawah jika mengalami error.
+
 ---
 
 ## 📜 Script Hook (Copy-Paste Ini)

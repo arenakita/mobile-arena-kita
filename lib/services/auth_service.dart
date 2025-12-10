@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,11 +26,11 @@ class AuthService {
         await prefs.setString('auth_token', token);
         return true;
       } else {
-        print("Login Gagal: ${response.body}");
+        debugPrint("Login Gagal: ${response.body}");
         return false;
       }
     } catch (e) {
-      print("Error koneksi: $e");
+      debugPrint("Error koneksi: $e");
       return false;
     }
   }

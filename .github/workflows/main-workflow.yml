@@ -25,71 +25,81 @@ jobs:
   # Job 2: Notifikasi Telegram
   notify:
     needs: quality-check
-    if: always() # Jalankan meskipun quality check gagal (untuk lapor error)
+    if: always() # Jalankan meskipun quality check gagal
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
-      # Notifikasi Update Branch Develop (Reminder Pull)
+      # 1. Notifikasi Update Branch Develop (Reminder Pull)
       - name: Notify Develop Update
         if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html  # <-- PENTING: Mengaktifkan mode HTML
           message: |
-            🚀 **UPDATE ALERT: DEVELOP BRANCH**
+            🚀 <b>UPDATE ALERT: DEVELOP BRANCH</b>
             
-            Branch `develop` baru saja diperbarui oleh ${{ github.actor }}.
+            Branch <code>develop</code> baru saja diperbarui oleh <b>${{ github.actor }}</b>.
             
-            ⚠️ **PERHATIAN:**
-            Mohon rekan-rekan yang sedang di branch lain segera lakukan:
-            `git pull origin develop`
+            ⚠️ <b>PERHATIAN REKAN TIM:</b>
+            Mohon yang sedang di branch lain segera lakukan sinkronisasi:
             
-            Agar tidak terjadi konflik kode yang menumpuk!
+            <code>git pull origin develop</code>
             
-            Commit: ${{ github.event.head_commit.message }}
+            <i>Agar tidak terjadi konflik kode yang menumpuk!</i>
+            
+            📝 <b>Commit:</b>
+            <pre>${{ github.event.head_commit.message }}</pre>
 
-      # Notifikasi Pull Request Baru
+      # 2. Notifikasi Pull Request Baru
       - name: Notify New PR
         if: github.event_name == 'pull_request' && github.event.action == 'opened'
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
           message: |
-            📝 **NEW PULL REQUEST**
+            📝 <b>NEW PULL REQUEST</b>
             
-            **Judul:** ${{ github.event.pull_request.title }}
-            **Oleh:** ${{ github.actor }}
-            **Ke:** ${{ github.event.pull_request.base.ref }}
+            <b>Judul:</b> ${{ github.event.pull_request.title }}
+            <b>Oleh:</b> ${{ github.actor }}
+            <b>Ke Branch:</b> <code>${{ github.event.pull_request.base.ref }}</code>
             
-            Silakan review di sini:
-            ${{ github.event.pull_request.html_url }}
+            🔍 <a href="${{ github.event.pull_request.html_url }}"><b>KLIK DI SINI UNTUK REVIEW</b></a>
 
-      # Notifikasi PR Merged / Closed
+      # 3. Notifikasi PR Merged / Closed
       - name: Notify PR Status
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
           message: |
-            ✅ **PULL REQUEST SELESAI**
+            ✅ <b>PULL REQUEST SELESAI</b>
             
-            **Judul:** ${{ github.event.pull_request.title }}
-            **Status:** ${{ github.event.pull_request.merged && 'MERGED 🟣' || 'CANCELED/CLOSED 🔴' }}
-            **Oleh:** ${{ github.event.pull_request.user.login }}
+            <b>Judul:</b> ${{ github.event.pull_request.title }}
+            <b>Status:</b> ${{ github.event.pull_request.merged && 'MERGED 🟣' || 'CANCELED/CLOSED 🔴' }}
+            <b>Oleh:</b> ${{ github.event.pull_request.user.login }}
+            
+            🔗 <a href="${{ github.event.pull_request.html_url }}">Lihat Detail PR</a>
 
-      # Notifikasi Jika Flutter Analyze Gagal
+      # 4. Notifikasi Jika Flutter Analyze Gagal
       - name: Notify Build Failure
         if: needs.quality-check.result == 'failure'
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
           message: |
-            ❌ **BUILD ERROR**
+            ❌ <b>BUILD ERROR / ANALYZE FAILED</b>
             
-            Ada kode yang error (Flutter Analyze Failed) pada push terbaru oleh ${{ github.actor }}.
-            Mohon cek log Action di GitHub.
+            Ada kode yang error pada push terbaru oleh <b>${{ github.actor }}</b>.
+            
+            🚫 <i>Mohon cek log Action di GitHub sebelum merge!</i>
+            
+            👉 <a href="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"><b>LIHAT LOG ERROR</b></a>
