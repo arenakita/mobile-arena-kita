@@ -1,0 +1,95 @@
+name: CI/CD & Notification
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feat/*'
+      - 'fix/*'
+  pull_request:
+    types: [opened, closed, reopened]
+
+jobs:
+  # Job 1: Cek Kualitas Kode (Flutter Analyze)
+  quality-check:
+    name: Quality Check (Analyze)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter analyze
+
+  # Job 2: Notifikasi Telegram
+  notify:
+    needs: quality-check
+    if: always() # Jalankan meskipun quality check gagal (untuk lapor error)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Notifikasi Update Branch Develop (Reminder Pull)
+      - name: Notify Develop Update
+        if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🚀 **UPDATE ALERT: DEVELOP BRANCH**
+            
+            Branch `develop` baru saja diperbarui oleh ${{ github.actor }}.
+            
+            ⚠️ **PERHATIAN:**
+            Mohon rekan-rekan yang sedang di branch lain segera lakukan:
+            `git pull origin develop`
+            
+            Agar tidak terjadi konflik kode yang menumpuk!
+            
+            Commit: ${{ github.event.head_commit.message }}
+
+      # Notifikasi Pull Request Baru
+      - name: Notify New PR
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            📝 **NEW PULL REQUEST**
+            
+            **Judul:** ${{ github.event.pull_request.title }}
+            **Oleh:** ${{ github.actor }}
+            **Ke:** ${{ github.event.pull_request.base.ref }}
+            
+            Silakan review di sini:
+            ${{ github.event.pull_request.html_url }}
+
+      # Notifikasi PR Merged / Closed
+      - name: Notify PR Status
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ✅ **PULL REQUEST SELESAI**
+            
+            **Judul:** ${{ github.event.pull_request.title }}
+            **Status:** ${{ github.event.pull_request.merged && 'MERGED 🟣' || 'CANCELED/CLOSED 🔴' }}
+            **Oleh:** ${{ github.event.pull_request.user.login }}
+
+      # Notifikasi Jika Flutter Analyze Gagal
+      - name: Notify Build Failure
+        if: needs.quality-check.result == 'failure'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ❌ **BUILD ERROR**
+            
+            Ada kode yang error (Flutter Analyze Failed) pada push terbaru oleh ${{ github.actor }}.
+            Mohon cek log Action di GitHub.
