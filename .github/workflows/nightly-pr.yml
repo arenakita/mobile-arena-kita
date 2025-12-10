@@ -1,0 +1,45 @@
+name: Nightly Auto PR
+
+on:
+  schedule:
+    # 17:00 UTC = 00:00 WIB (Waktu Indonesia Barat)
+    - cron: '0 17 * * *'
+  workflow_dispatch: # Agar bisa ditrigger manual buat ngetes
+
+jobs:
+  auto-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ambil semua history branch
+
+      - name: Create PRs for all feature branches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Ambil list branch remote yang berawalan feat/ atau fix/
+          branches=$(git branch -r | grep -E 'origin/(feat|fix)/' | sed 's/origin\///' | tr -d ' ')
+          
+          for branch in $branches; do
+            echo "Checking branch: $branch"
+            
+            # Cek apakah sudah ada PR yang open untuk branch ini ke develop
+            pr_count=$(gh pr list --head "$branch" --base "develop" --state open --json number --jq 'length')
+            
+            if [ "$pr_count" -eq 0 ]; then
+              echo "Creating PR for $branch..."
+              
+              # Buat PR
+              gh pr create \
+                --title "[Auto-Nightly] Merge $branch to develop" \
+                --body "PR otomatis dibuat oleh sistem nightly schedule. Mohon review perubahan hari ini." \
+                --head "$branch" \
+                --base "develop" || echo "No changes to merge or error creating PR for $branch"
+            else
+              echo "PR already exists for $branch"
+            fi
+          done
