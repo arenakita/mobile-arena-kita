@@ -4,14 +4,14 @@ import 'package:arena_kita/screens/management/management_screen.dart';
 import 'package:arena_kita/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
-class MainScaffold extends StatefulWidget {
-  const MainScaffold({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<MainScaffold> createState() => _MainScaffoldState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScaffoldState extends State<MainScaffold> {
+class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[

@@ -2,14 +2,14 @@ import 'package:arena_kita/widgets/bottom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:arena_kita/services/auth_service.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _authService = AuthService();
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     if (success) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const MainScaffold(),
+          builder: (context) => const MainScreen(),
         ),
       );
     } else {

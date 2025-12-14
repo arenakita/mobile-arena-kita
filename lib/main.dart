@@ -19,7 +19,7 @@ class ArenaKitaApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: const LoginPage(),
+      home: const LoginScreen(),
     );
   }
 }
