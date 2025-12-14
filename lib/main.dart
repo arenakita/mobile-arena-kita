@@ -1,3 +1,4 @@
+import 'package:arena_kita/screens/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,10 +19,7 @@ class ArenaKitaApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      // Nanti diganti ke halaman Login saat fiturnya dibuat
-      home: const Scaffold(
-        body: Center(child: Text("ArenaKita Initial Setup Ready!")),
-      ),
+      home: const LoginScreen(),
     );
   }
 }

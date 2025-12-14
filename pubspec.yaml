@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^6.1.0 # For using Google Fonts
   intl: ^0.19.0 # For internationalization and localization
   provider: ^6.1.2 # State management solution
+  flutter_secure_storage: ^10.0.0
 
 dev_dependencies:
   flutter_test:
