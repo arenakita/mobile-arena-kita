@@ -1,0 +1,48 @@
+{
+    "status": "success",
+    "message": "Berhasil menampilkan detail venue.",
+    "data": {
+        "id": 1,
+        "venue_name": "Venue Hintz, Bauch and Koch",
+        "description": "Deserunt alias quidem nemo suscipit rerum dolorum ad. Nobis beatae nostrum atque expedita est repellendus. Non et vel non velit. Praesentium quas aut quas aperiam perferendis et quia.",
+        "address": "5257 Ryley Wells\nLake Oceanechester, WV 07279",
+        "city": "East Lilliemouth",
+        "gps_coordinate": null,
+        "opening_time": "08:00",
+        "closing_time": "22:00",
+        "thumbnail": null,
+        "photos": [
+            {
+                "id": 33,
+                "url": "venue/RQoqV0w7EFiU79sJtwrDuphK18frwCabdRWhDdgu.jpg"
+            },
+            {
+                "id": 34,
+                "url": "venue/xJ9QVefq7Aa6uhZ2YBxQ9niy5IMKjCodZdzD71Bc.png"
+            }
+        ],
+        "fields": [
+            {
+                "id": 1,
+                "name": "Lapangan 2",
+                "type": "futsal",
+                "status": "AVAILABLE",
+                "photo_url": "fields/KsIJp5sDAsUrdwlWGCzCUWaIGp7LLpzOdXngnkh1.png"
+            },
+            {
+                "id": 2,
+                "name": "Lapangan 1",
+                "type": "Badminton",
+                "status": "AVAILABLE",
+                "photo_url": null
+            },
+            {
+                "id": 3,
+                "name": "Lapangan 2",
+                "type": "Voli",
+                "status": "AVAILABLE",
+                "photo_url": null
+            }
+        ]
+    }
+}
