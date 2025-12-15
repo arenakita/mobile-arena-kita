@@ -257,7 +257,7 @@ class _BookingsTabViewState extends State<BookingsTabView> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 2), // changes position of shadow
@@ -285,7 +285,7 @@ class _BookingsTabViewState extends State<BookingsTabView> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _getStatusColor(booking.status).withOpacity(0.1),
+                  color: _getStatusColor(booking.status).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(

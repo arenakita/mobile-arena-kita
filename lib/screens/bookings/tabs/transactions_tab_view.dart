@@ -215,7 +215,7 @@ class _TransactionsTabViewState extends State<TransactionsTabView> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 2),
@@ -273,7 +273,7 @@ class _TransactionsTabViewState extends State<TransactionsTabView> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: _getPaymentStatusColor(transaction.paymentStatus)
-                      .withOpacity(0.1),
+                      .withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -299,7 +299,7 @@ class _TransactionsTabViewState extends State<TransactionsTabView> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _getBookingStatusColor(booking.status).withOpacity(0.1),
+                  color: _getBookingStatusColor(booking.status).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
