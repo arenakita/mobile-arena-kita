@@ -37,11 +37,18 @@ dependencies:
   http: ^1.2.0 # For making HTTP requests
   shared_preferences: ^2.2.2 # For storing simple key-value pairs
   google_fonts: ^6.1.0 # For using Google Fonts
-  intl: ^0.19.0 # For internationalization and localization
+  intl: ^0.20.2 # For internationalization and localization
   provider: ^6.1.2 # State management solution
   flutter_secure_storage: ^10.0.0
+  json_annotation: ^4.9.0
+  freezed_annotation: ^3.1.0
+  equatable: ^2.0.7
+  collection: ^1.19.1
 
 dev_dependencies:
+  build_runner: ^2.10.4
+  json_serializable: ^6.11.2
+  freezed: ^3.2.3
   flutter_test:
     sdk: flutter
 
@@ -50,7 +57,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
