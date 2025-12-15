@@ -7,6 +7,11 @@ import 'package:http/http.dart' as http;
 class AuthService {
   final storage = FlutterSecureStorage();
 
+  Future<bool> isLoggedIn() async {
+    final token = await storage.read(key: 'token');
+    return token != null;
+  }
+
   Future<bool> login(String email, String password) async {
     try {
       final response = await http.post(
@@ -32,5 +37,9 @@ class AuthService {
       debugPrint("Error koneksi: $e");
       return false;
     }
+  }
+
+  Future<void> logout() async {
+    await storage.delete(key: 'token');
   }
 }
