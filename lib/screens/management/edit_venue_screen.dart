@@ -15,13 +15,25 @@ class _EditVenueScreenState extends State<EditVenueScreen> {
   final _formKey = GlobalKey<FormState>();
   final _venueService = VenueService();
 
-  late final _venueNameController = TextEditingController(text: widget.venue.venueName);
-  late final _descriptionController = TextEditingController(text: widget.venue.description);
-  late final _addressController = TextEditingController(text: widget.venue.address);
+  late final _venueNameController = TextEditingController(
+    text: widget.venue.venueName,
+  );
+  late final _descriptionController = TextEditingController(
+    text: widget.venue.description,
+  );
+  late final _addressController = TextEditingController(
+    text: widget.venue.address,
+  );
   late final _cityController = TextEditingController(text: widget.venue.city);
-  late final _gpsCoordinateController = TextEditingController(text: widget.venue.gpsCoordinate ?? '');
-  late final _openingTimeController = TextEditingController(text: widget.venue.openingTime);
-  late final _closingTimeController = TextEditingController(text: widget.venue.closingTime);
+  late final _gpsCoordinateController = TextEditingController(
+    text: widget.venue.gpsCoordinate ?? '',
+  );
+  late final _openingTimeController = TextEditingController(
+    text: widget.venue.openingTime,
+  );
+  late final _closingTimeController = TextEditingController(
+    text: widget.venue.closingTime,
+  );
 
   bool _isLoading = false;
 
@@ -64,9 +76,9 @@ class _EditVenueScreenState extends State<EditVenueScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal memperbarui venue: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Gagal memperbarui venue: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -79,16 +91,15 @@ class _EditVenueScreenState extends State<EditVenueScreen> {
       initialTime: TimeOfDay.now(),
     );
     if (picked != null) {
-      controller.text = '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+      controller.text =
+          '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Venue'),
-      ),
+      appBar: AppBar(title: const Text('Edit Venue')),
       body: Form(
         key: _formKey,
         child: ListView(

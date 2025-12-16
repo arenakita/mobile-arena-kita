@@ -54,9 +54,7 @@ class _ManagementScreenState extends State<ManagementScreen> {
             onPressed: () async {
               final result = await Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const AddVenueScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const AddVenueScreen()),
               );
               if (result == true) {
                 _loadVenues();
@@ -160,9 +158,8 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VenueDetailScreen(
-                              venueId: venue.id,
-                            ),
+                            builder: (context) =>
+                                VenueDetailScreen(venueId: venue.id),
                           ),
                         );
                         if (result == true) {

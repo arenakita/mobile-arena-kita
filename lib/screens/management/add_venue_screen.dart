@@ -11,7 +11,7 @@ class AddVenueScreen extends StatefulWidget {
 class _AddVenueScreenState extends State<AddVenueScreen> {
   final _formKey = GlobalKey<FormState>();
   final _venueService = VenueService();
-  
+
   final _venueNameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _addressController = TextEditingController();
@@ -19,7 +19,7 @@ class _AddVenueScreenState extends State<AddVenueScreen> {
   final _gpsCoordinateController = TextEditingController();
   final _openingTimeController = TextEditingController();
   final _closingTimeController = TextEditingController();
-  
+
   bool _isLoading = false;
 
   @override
@@ -45,8 +45,8 @@ class _AddVenueScreenState extends State<AddVenueScreen> {
         description: _descriptionController.text,
         address: _addressController.text,
         city: _cityController.text,
-        gpsCoordinate: _gpsCoordinateController.text.isEmpty 
-            ? null 
+        gpsCoordinate: _gpsCoordinateController.text.isEmpty
+            ? null
             : _gpsCoordinateController.text,
         openingTime: _openingTimeController.text,
         closingTime: _closingTimeController.text,
@@ -60,9 +60,9 @@ class _AddVenueScreenState extends State<AddVenueScreen> {
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal menambahkan venue: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Gagal menambahkan venue: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -75,16 +75,15 @@ class _AddVenueScreenState extends State<AddVenueScreen> {
       initialTime: TimeOfDay.now(),
     );
     if (picked != null) {
-      controller.text = '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+      controller.text =
+          '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tambah Venue'),
-      ),
+      appBar: AppBar(title: const Text('Tambah Venue')),
       body: Form(
         key: _formKey,
         child: ListView(

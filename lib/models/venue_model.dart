@@ -38,13 +38,13 @@ class Venue {
       thumbnail: json['thumbnail'],
       photos: json['photos'] != null
           ? (json['photos'] as List)
-              .map((photo) => VenuePhoto.fromJson(photo))
-              .toList()
+                .map((photo) => VenuePhoto.fromJson(photo))
+                .toList()
           : null,
       fields: json['fields'] != null
           ? (json['fields'] as List)
-              .map((field) => Field.fromJson(field))
-              .toList()
+                .map((field) => Field.fromJson(field))
+                .toList()
           : null,
     );
   }
@@ -54,16 +54,10 @@ class VenuePhoto {
   final int id;
   final String url;
 
-  VenuePhoto({
-    required this.id,
-    required this.url,
-  });
+  VenuePhoto({required this.id, required this.url});
 
   factory VenuePhoto.fromJson(Map<String, dynamic> json) {
-    return VenuePhoto(
-      id: json['id'],
-      url: json['url'],
-    );
+    return VenuePhoto(id: json['id'], url: json['url']);
   }
 }
 
