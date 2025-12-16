@@ -1,6 +1,6 @@
 import 'package:arena_kita/screens/auth/login_screen.dart';
+import 'package:arena_kita/services/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,15 +13,16 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Center(
         child: ElevatedButton(
-            onPressed: (){
-              final storage = FlutterSecureStorage();
-              storage.delete(key: 'token');
+            onPressed: () async {
+              await AuthService().logout();
 
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-              );
+              if (context.mounted) {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ), (route) => false,
+                );
+              }
             },
             child: const Text('Logout'))
       ),

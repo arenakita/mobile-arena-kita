@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Login Gagal'),
+          content: Text('Login Gagal: Cek email atau password'),
         ),
       );
     }
