@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../models/venue_model.dart';
 import '../../services/venue_service.dart';
-import 'add_venue_screen.dart';
-import 'venue_detail_screen.dart';
 
-class ManagementScreen extends StatefulWidget {
-  const ManagementScreen({super.key});
+class VenuesListScreen extends StatefulWidget {
+  const VenuesListScreen({super.key});
 
   @override
-  State<ManagementScreen> createState() => _ManagementScreenState();
+  State<VenuesListScreen> createState() => _VenuesListScreenState();
 }
 
-class _ManagementScreenState extends State<ManagementScreen> {
+class _VenuesListScreenState extends State<VenuesListScreen> {
   final VenueService _venueService = VenueService();
   List<Venue> _venues = [];
   bool _isLoading = true;
@@ -51,16 +49,8 @@ class _ManagementScreenState extends State<ManagementScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AddVenueScreen(),
-                ),
-              );
-              if (result == true) {
-                _loadVenues();
-              }
+            onPressed: () {
+              // TODO: Navigasi ke halaman tambah venue
             },
           ),
         ],
@@ -156,18 +146,8 @@ class _ManagementScreenState extends State<ManagementScreen> {
                         ],
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => VenueDetailScreen(
-                              venueId: venue.id,
-                            ),
-                          ),
-                        );
-                        if (result == true) {
-                          _loadVenues();
-                        }
+                      onTap: () {
+                        // TODO: Navigasi ke detail venue
                       },
                     ),
                   );
