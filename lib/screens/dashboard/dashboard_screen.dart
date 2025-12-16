@@ -132,7 +132,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: bookings.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 10),
+              separatorBuilder: (context, index) => const SizedBox(height: 10),
               itemBuilder: (context, index) {
                 final booking = bookings[index];
 
